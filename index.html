@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>vue_sass手机端单页面</title>
+    <link rel="stylesheet" href="./css/index.css">
+</head>
+<body>
+    <div id="app">
+        <img class="top" src="./img/top.png" alt="">
+        <main_item v-for="(item,index) in info" :s_item="item"></main_item>
+    </div>
+    
+    <!-- 原生版： -->
+    <!-- <div class="main">
+        <div class="title">
+            <img src="./img/one.png" alt="">
+            <p>连线学习</p>
+        </div>
+        <div class="center">
+            <div class="theme">
+                学习生活中遇到烦心事？快来这里和小伙伴们一起吐槽！
+            </div>
+            <div class="new">
+                <img src="./img/new.png" alt="">
+                <p>可以创建私密学习房，和好友学习不再被打扰</p>
+            </div>
+
+                <img class="figure" width="80%" src="./img/c_img.png" alt="">
+
+            <button>试试新的连线学习</button>
+            <div class="footer"></div>
+        </div>
+    </div> -->
+
+    <template id="main_item">
+        <div class="main">
+            <div class="title">
+                <img src="./img/one.png" alt="">
+                <p>{{s_item.title}}</p>
+            </div>
+            <div class="center">
+                <div class="theme" v-if="(s_item.theme)">
+                    {{s_item.theme}}
+                </div>
+
+                <div>
+                    <div class="new" v-for="(new_item,index) in s_item.center"  >
+                        <img src="./img/new.png" alt="">
+                        <p>{{new_item}}</p>
+                    </div>
+                </div>
+
+                    <img class="figure" v-if="s_item.img" width="80%" :src="s_item.img" alt="">
+
+                <button>{{s_item.button}}</button>
+                <div class="footer"></div>
+            </div>
+        </div>
+    </template>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script>
+
+    var main_item =  {
+        template : "#main_item",
+        props : ["s_item"]
+        
+    }
+    
+    new Vue({
+        el:'#app',
+        data:{
+            info:[
+                {
+                    id:1,
+                    title:"连线学习",
+                    theme:"",
+                    center:{
+                        one:"可以创建私密学习房，和好友学习不再被打扰"
+                    },
+                    img:'./img/c_img.png',
+                    button:"试试新的连线学习"
+                },{
+                    id:2,
+                    title:"树洞对讲机",
+                    theme:"学习生活中遇到烦心事？快来这里和小伙伴们一起吐槽！",
+                    center:{
+                        one:"频道内有主题，方便你找到组织",
+                        two:"对讲人数无上限，一起吐槽一起high！",
+                        three:"频道内直接组学习局，遇到合拍的人别放走！"
+                    },
+                    img:'',
+                    button:"频道high聊中,快去看看>"
+                }
+            ]
+        },
+        components:{
+            main_item
+        }
+    })
+</script>
+</html>
